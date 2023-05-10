@@ -1,10 +1,14 @@
 from django.db import models
+from datetime import datetime
+from django.contrib import admin
+import time
 
-MEDIA_ROOT = "media/uploads"
+MEDIA_ROOT = "media/polls"
 
 
 def filepath(table, instance, filename):
-    return f"{MEDIA_ROOT}/{table}/{instance}/%Y%m%d%H%M{filename}"
+    epoch = int(time.time())
+    return f"{MEDIA_ROOT}/{table}/{instance.id}/{epoch}_{filename}"
 
 
 def category_file_path(instance, filename):
@@ -21,7 +25,7 @@ class Category(models.Model):
     picture = models.ImageField(upload_to=category_file_path)
 
     def __str__(self):
-        return name
+        return self.name
 
 
 class Client(models.Model):
@@ -35,37 +39,6 @@ class Client(models.Model):
 
     def __str__(self):
         return f"{name} {last_name}"
-
-
-class Employee(models.Model):
-    status_choice = []
-
-    password = models.CharField(max_length=64)
-    email = models.EmailField(unique=True)
-    status = models.CharField(max_length=2, default="AC")
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=60)
-
-    def __str__(self):
-        return f"{self.first_name} {self.last_name}"
-
-
-class Paths(models.Model):
-    name = models.CharField(max_length=45)
-    method_path = models.CharField(max_length=256, unique=True)
-
-    def __str__(self):
-        return self.name
-
-
-class Group(models.Model):
-    name = models.CharField(max_length=20, primary_key=True)
-    is_admin = models.BooleanField(default=False)
-    employees = models.ManyToManyField(Employee)
-    paths = models.ManyToManyField(Paths)
-
-    def __str__(self):
-        return self.name
 
 
 class Order(models.Model):
@@ -96,3 +69,12 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# class GroupInLine(admin.TabularInline):
+#     model = Group
+
+# class EmployeeInLine(admin.ModelAdmin):
+# inlines = [ GroupInLine]
+
+# admin.site.register(Employee, EmployeeInLine)
