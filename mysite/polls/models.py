@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.contrib import admin
+from django.contrib.auth.models import User
 import time
 
 MEDIA_ROOT = "media/polls"
@@ -8,7 +9,7 @@ MEDIA_ROOT = "media/polls"
 
 def filepath(table, instance, filename):
     epoch = int(time.time())
-    return f"{MEDIA_ROOT}/{table}/{instance.id}/{epoch}_{filename}"
+    return f"{MEDIA_ROOT}/{table}/{instance.name}/{epoch}_{filename}"
 
 
 def category_file_path(instance, filename):
@@ -29,13 +30,17 @@ class Category(models.Model):
 
 
 class Client(models.Model):
+    status_choice = [
+        (0, "INACTIVE"),
+        (1, "ACTIVE"),
+    ]
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=80)
     created_at = models.CharField(max_length=27)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=64)
     phone = models.CharField(max_length=20)
-    status = models.CharField(max_length=20, default="ACTIVE")
+    status = models.IntegerField(choices=status_choice)
 
     def __str__(self):
         return f"{name} {last_name}"
@@ -50,7 +55,7 @@ class Order(models.Model):
     ]
     client = models.ForeignKey(Client, on_delete=models.RESTRICT)
     employee = models.ForeignKey(
-        Employee, null=True, blank=True, on_delete=models.RESTRICT
+        User, null=True, blank=True, on_delete=models.RESTRICT, default=None
     )
     status = models.IntegerField(choices=status_choice, default=1)
     datetime = models.DateField(auto_now_add=True)
@@ -64,7 +69,7 @@ class Product(models.Model):
     picture = models.ImageField(
         upload_to=product_file_path,
     )
-    status = models.BooleanField(default=True)
+    status = models.IntegerField(choices=status_choice, default=1)
     categories = models.ManyToManyField(Category, related_name="products")
 
     def __str__(self):
