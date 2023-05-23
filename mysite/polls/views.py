@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render
+from polls.products import Products
 
 
 def index(request):
@@ -8,4 +9,7 @@ def index(request):
 
 
 def cardapio(request):
-    return render(request, "products.html", {})
+    products = Products().getAllProducts()
+    print(products)
+    context = {"products": products}
+    return render(request, "products.html", context)

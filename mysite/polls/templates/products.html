@@ -10,11 +10,18 @@
 
 <body>
   {% if products %}
-  <ul>
+  <table>
     {% for product in products %}
-    <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
+    <tr>
+      <td>
+        {{product.name}}
+      </td>
+      <td>
+        {{product.price}}
+      </td>
+    </tr>
     {% endfor %}
-  </ul>
+  </table>
   {% else %}
   <p>Nenhum produto disponível</p>
   {% endif %}
