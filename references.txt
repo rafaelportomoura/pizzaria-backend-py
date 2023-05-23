@@ -1,1 +1,4 @@
 https://www.alura.com.br/artigos/ambientes-virtuais-em-python\?gclid\=EAIaIQobChMI8qTH16jp_gIVfWpvBB21_QsdEAAYASAAEgIwI_D_BwE
+https://docs.djangoproject.com/en/4.2/
+https://jinja.palletsprojects.com/en/3.1.x/
+https://jinja.palletsprojects.com/en/3.1.x/templates/#html-escaping
