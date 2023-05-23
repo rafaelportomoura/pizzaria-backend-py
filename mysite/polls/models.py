@@ -70,7 +70,7 @@ class Product(models.Model):
         upload_to=product_file_path,
     )
     status = models.IntegerField(choices=status_choice, default=1)
-    categories = models.ManyToManyField(Category, related_name="products")
+    categories = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.name

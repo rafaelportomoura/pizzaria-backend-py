@@ -1,6 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return render(request, "index.html", {})
+
+
+def cardapio(request):
+    return render(request, "products.html", {})
