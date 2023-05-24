@@ -4,11 +4,3 @@ https://jinja.palletsprojects.com/en/3.1.x/
 https://jinja.palletsprojects.com/en/3.1.x/templates/#html-escaping
 
 https://excalidraw.com/#room=4af7a1ea7ba9a5bdedea,KXmxxGKm-zCYTYlE5zTZ-g
-
-
-<tr>
-                {% for product in products %}
-                    <th>{{ product.name }}</th>
-                    <td>{{ product.price }}</td>
-                {% endfor %}
-            </tr>

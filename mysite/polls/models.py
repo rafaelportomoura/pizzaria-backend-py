@@ -20,6 +20,12 @@ def product_file_path(instance, filename):
     return filepath("product", instance, filename)
 
 
+def dictfetchall(cursor):
+    "Return all rows from a cursor as a dict"
+    columns = [col[0] for col in cursor.description]
+    return [dict(zip(columns, row)) for row in cursor.fetchall()]
+
+
 class Category(models.Model):
     name = models.CharField(max_length=20, primary_key=True)
     description = models.TextField()
@@ -36,22 +42,23 @@ class Client(models.Model):
     ]
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=80)
-    created_at = models.CharField(max_length=27)
+    created_at = models.TimeField(auto_now_add=True)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=64)
     phone = models.CharField(max_length=20)
     status = models.IntegerField(choices=status_choice)
 
     def __str__(self):
-        return f"{name} {last_name}"
+        return f"{self.first_name} {self.last_name}"
 
 
 class Order(models.Model):
     status_choice = [
         (0, "Cancelled"),
-        (1, "Placed"),
-        (2, "Processing"),
-        (3, "Completed"),
+        (1, "Cart"),
+        (2, "Placed"),
+        (3, "Processing"),
+        (4, "Completed"),
     ]
     client = models.ForeignKey(Client, on_delete=models.RESTRICT)
     employee = models.ForeignKey(
@@ -59,6 +66,9 @@ class Order(models.Model):
     )
     status = models.IntegerField(choices=status_choice, default=1)
     datetime = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.id}"
 
 
 class Product(models.Model):
