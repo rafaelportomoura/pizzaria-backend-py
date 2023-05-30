@@ -43,8 +43,7 @@ class Client(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=80)
     created_at = models.TimeField(auto_now_add=True)
-    email = models.EmailField(unique=True)
-    password = models.CharField(max_length=64)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length=20)
     status = models.IntegerField(choices=status_choice)
 
@@ -83,9 +82,12 @@ class Order(models.Model):
     products = models.ManyToManyField(Product)
 
     def __str__(self):
-        return f"{self.id}"
+        return self.id
 
 
 class Cart(models.Model):
     client = models.OneToOneField(Client, on_delete=models.CASCADE, primary_key=True)
     products = models.ManyToManyField(Product)
+
+    def __str__(self):
+        return self.client
