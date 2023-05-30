@@ -52,25 +52,6 @@ class Client(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 
-class Order(models.Model):
-    status_choice = [
-        (0, "Cancelled"),
-        (1, "Cart"),
-        (2, "Placed"),
-        (3, "Processing"),
-        (4, "Completed"),
-    ]
-    client = models.ForeignKey(Client, on_delete=models.RESTRICT)
-    employee = models.ForeignKey(
-        User, null=True, blank=True, on_delete=models.RESTRICT, default=None
-    )
-    status = models.IntegerField(choices=status_choice, default=1)
-    datetime = models.DateField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.id}"
-
-
 class Product(models.Model):
     status_choice = [(0, "Lacking"), (1, "Available")]
     name = models.CharField(max_length=30, unique=True)
@@ -86,10 +67,25 @@ class Product(models.Model):
         return self.name
 
 
-# class GroupInLine(admin.TabularInline):
-#     model = Group
+class Order(models.Model):
+    status_choice = [
+        (0, "Cancelled"),
+        (1, "Placed"),
+        (2, "Processing"),
+        (3, "Completed"),
+    ]
+    client = models.ForeignKey(Client, on_delete=models.RESTRICT)
+    employee = models.ForeignKey(
+        User, null=True, blank=True, on_delete=models.RESTRICT, default=None
+    )
+    status = models.IntegerField(choices=status_choice, default=1)
+    datetime = models.DateField(auto_now_add=True)
+    products = models.ManyToManyField(Product)
 
-# class EmployeeInLine(admin.ModelAdmin):
-# inlines = [ GroupInLine]
+    def __str__(self):
+        return f"{self.id}"
 
-# admin.site.register(Employee, EmployeeInLine)
+
+class Cart(models.Model):
+    client = models.OneToOneField(Client, on_delete=models.CASCADE, primary_key=True)
+    products = models.ManyToManyField(Product)
