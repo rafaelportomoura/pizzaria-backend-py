@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from polls.services.products import ProductsService
 from polls.services.orders import OrderService
+from polls.services.login import Login
 
 
 def index(request):
@@ -19,3 +20,16 @@ def cardapio(request):
 def cart(request):
     cart = OrderService().getCartOrder()
     return cart
+
+
+def login(request):
+    try:
+        if request.method == "GET":
+            return render(request, "login.html", {})
+        elif request.method == "POST":
+            login_service = Login(request=request)
+            login_service.login()
+            return render(request, "work_in_progress.html", {})
+    except:
+        context = {"error": "Login inválido!"}
+        return render(request, "login.html", context)
