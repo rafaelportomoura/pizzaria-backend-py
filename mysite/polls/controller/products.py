@@ -5,5 +5,5 @@ class Products:
     def __init__(self):
         self.model = Product
 
-    def getAllProducts(self):
+    def all(self):
         return self.model.objects.all()

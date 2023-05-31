@@ -6,44 +6,67 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pizzaria do DCC</title>
-  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  <title>🍕 Pizzaria do DCC</title>
 </head>
 
 {% include 'components/navbar.html' %}
 
-<body>
-  <div>
-    <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-      the industry's
-      standard
-      dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
-      specimen
-      book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining
-      essentially
-      unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-      and
-      more
-      recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+<body class="bg-dark text-light">
+  <div class="container">
+    <div class="row row-cols-2 align-items-center">
+      <div class="col">
+        <h2 class="title">Bem-vindo à Pizzaria do DCC! 🎉</h2>
+        <p>
+          Satisfaça sua paixão por pizzas deliciosas com a Pizzaria do DCC. Nós oferecemos uma ampla variedade de
+          sabores
+          irresistíveis, preparados com ingredientes frescos e de alta qualidade. Combinamos a tradição da pizza
+          italiana
+          com um toque de criatividade para proporcionar uma experiência única aos nossos clientes.
+        </p>
+        <p>
+          Experimente nossas pizzas clássicas, como a Margherita, a Pepperoni ou a Quatro Queijos, ou explore nossas
+          opções especiais, incluindo a Pizza do Chef, com combinações exclusivas e sabores surpreendentes. Com cada
+          mordida, você sentirá a paixão e o cuidado que colocamos em cada pizza.
+        </p>
+        <p>
+          Além de pizzas incríveis, oferecemos um ambiente acolhedor e um serviço excepcional. Nossa equipe está pronta
+          para recebê-lo com um sorriso caloroso e ajudá-lo a escolher a pizza perfeita para satisfazer seu paladar.
+        </p>
+        <p>
+          Faça seu pedido agora e desfrute da autêntica experiência da Pizzaria do DCC!
+        </p>
+      </div>
+      <div class="col">
+        <img id="pizza1" class="img-fluid" src="{%static 'assets/pizza1.jpg' %}" />
+      </div>
     </div>
-    <div>
-      <img src="{%static 'assets/pizza.jpeg' %}" />
+    <div class="row row-cols-2 align-items-center">
+      <div class="col">
+        <img id="pizza2" class="img-fluid" src="{%static 'assets/pizza2.jpeg' %}" />
+      </div>
+      <div class="col">
+        <h2 class="title">Descubra a Pizzaria do DCC! 👀</h2>
+        <p>
+          Se você está procurando a melhor pizza da cidade, não precisa mais procurar. Na Pizzaria do DCC, estamos
+          comprometidos em oferecer pizzas de qualidade incomparável, feitas com paixão e dedicação.
+        </p>
+        <p>
+          Nossas pizzas são preparadas artesanalmente, com uma massa leve e crocante e coberturas frescas e saborosas.
+          De
+          clássicos como a Calabresa e a Portuguesa a opções gourmet como a Pizza de Rúcula com Tomate Seco, temos uma
+          variedade de sabores para atender a todos os gostos.
+        </p>
+        <p>
+          Nosso ambiente acolhedor e familiar é perfeito para desfrutar de uma refeição deliciosa com amigos e
+          familiares.
+          Nossa equipe simpática e atenciosa está sempre pronta para tornar sua visita memorável.
+        </p>
+        <p>
+          Venha nos visitar e experimente a autêntica arte da pizza na Pizzaria do DCC. Deixe-nos encantar seu paladar e
+          tornar sua experiência gastronômica verdadeiramente especial.
+        </p>
+      </div>
     </div>
-  </div>
-  <div id="pizza-two">
-    <img src="{%static 'assets/pizza-2.jpeg' %}" />
-    <p>
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-      standard
-      dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
-      specimen
-      book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining
-      essentially
-      unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-      and
-      more
-      recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-    </p>
   </div>
 </body>
 

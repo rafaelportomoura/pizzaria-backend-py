@@ -4,16 +4,10 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 import time
 
-MEDIA_ROOT = "media/polls"
-
 
 def filepath(table, instance, filename):
     epoch = int(time.time())
-    return f"{MEDIA_ROOT}/{table}/{instance.name}/{epoch}_{filename}"
-
-
-def category_file_path(instance, filename):
-    return filepath("category", instance, filename)
+    return f"{table}/{instance.name}/{epoch}_{filename}"
 
 
 def product_file_path(instance, filename):
@@ -28,8 +22,6 @@ def dictfetchall(cursor):
 
 class Category(models.Model):
     name = models.CharField(max_length=20, primary_key=True)
-    description = models.TextField()
-    picture = models.ImageField(upload_to=category_file_path)
 
     def __str__(self):
         return self.name
@@ -60,7 +52,7 @@ class Product(models.Model):
         upload_to=product_file_path,
     )
     status = models.IntegerField(choices=status_choice, default=1)
-    categories = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.name
