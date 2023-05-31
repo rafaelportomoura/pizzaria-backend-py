@@ -1,9 +1,9 @@
 from django.urls import path
 
-from . import views
+import polls.views.index as views
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("cardapio", views.cardapio, name="cardapio"),
-    path("login", views.login, name="login"),
+    path("produtos", views.products.all, name="produtos"),
+    path("login", views.auth.login, name="login"),
 ]

@@ -9,11 +9,3 @@ class OrderService:
         for status in Order.status_choice:
             value, key = status
             self.status_choice[key] = value
-
-    def getCartOrder(self):
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM orders")
-
-            orders = dictfetchall(cursor)
-        return orders
-        # return self.model.objects.get(status=self.status_choice["Cart"])

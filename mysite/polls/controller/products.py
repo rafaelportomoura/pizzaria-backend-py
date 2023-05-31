@@ -1,7 +1,7 @@
 from polls.models import Product
 
 
-class ProductsService:
+class Products:
     def __init__(self):
         self.model = Product
 
