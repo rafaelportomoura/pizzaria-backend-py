@@ -7,3 +7,6 @@ class Products:
 
     def all(self):
         return self.model.objects.all()
+
+    def perCategory(self, category):
+        return self.model.objects.filter(category=category)
