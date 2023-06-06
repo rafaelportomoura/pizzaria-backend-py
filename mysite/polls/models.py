@@ -79,7 +79,15 @@ class Order(models.Model):
 
 class Cart(models.Model):
     client = models.OneToOneField(Client, on_delete=models.CASCADE, primary_key=True)
-    products = models.ManyToManyField(Product)
 
     def __str__(self):
-        return self.client
+        return self.client.__str__()
+
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.product} (Quantity: {self.quantity})"

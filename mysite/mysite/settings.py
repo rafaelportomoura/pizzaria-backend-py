@@ -128,4 +128,4 @@ MEDIA_ROOT = os.path.join(
     BASE_DIR, "media"
 )  # pasta media para abrigar os arquivos dos usuários
 MEDIA_URL = "/media/"
-LOGIN_URL = "/polls/login"
+LOGIN_URL = "/login"
