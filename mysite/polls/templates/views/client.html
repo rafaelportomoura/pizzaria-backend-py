@@ -18,29 +18,18 @@
   {% endif %}
   <form action="/cliente" method="post">
     {% csrf_token %}
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="inputEmail4">Nome</label>
-        <input class="form-control" placeholder="Nome">
-      </div>
-      <div class="form-group col-md-6">
-        <label for="inputPassword4">Sobrenome</label>
-        <input  class="form-control" placeholder="Sobrenome">
-      </div>
-    </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="inputEmail4">Email</label>
-          <input type="email" class="form-control" placeholder="Email">
-        </div>
-        <div class="form-group col-md-6">
-          <label for="inputPassword4">Senha</label>
-          <input type="password" class="form-control" placeholder="Senha">
-        </div>
-      </div>
-      <br>
-      <button type="submit" class="btn btn-primary">Cadastre-se</button>
-    </form>
+    <label for="nome">Nome:</label><br>
+    <input type="text" id="nome" name="nome"><br>
+    <label for="sobrenome">Sobrenome:</label><br>
+    <input type="text" id="sobrenome" name="sobrenome"><br><br>
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"><br><br>
+    <label for="senha">Senha:</label><br>
+    <input type="password" id="senha" name="senha"><br><br>
+    <input id="submit" type="submit" value="Submit">
+  </form>
+  <br>
+  <button type="submit" class="btn btn-primary">Cadastre-se</button>
 
 </body>
 
