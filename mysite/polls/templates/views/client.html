@@ -1,7 +1,7 @@
 {%load static%}
 <!DOCTYPE html>
 <html lang="pt-br">
-
+{% include 'components/bootstrap.html' %}
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,7 +16,7 @@
   {% if error %}
   <p class="error"><b>{{error}}</b></p>
   {% endif %}
-  <form action="/polls/client" method="post">
+  <form action="/cliente" method="post">
     {% csrf_token %}
       <div class="form-row">
         <div class="form-group col-md-6">

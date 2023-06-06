@@ -9,6 +9,7 @@ urlpatterns = [
     re_path(r"^login/?$", views.auth.login, name="login"),
     re_path(r"^cart/?$", views.cart.cart, name="cart"),
     re_path(r"^sair/?$", views.auth.logout_view, name="logout"),
+    re_path(r"^cliente/?$", views.client.client, name="client"),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 print(settings.MEDIA_ROOT)
