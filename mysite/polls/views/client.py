@@ -9,6 +9,7 @@ def client(request):
             return render(request, templates.CLIENT, {})
         elif request.method == "POST":
             ClientController().register(request)
+            
             return render(request, templates.CLIENT, {})
     except Exception as e:
         print(e)

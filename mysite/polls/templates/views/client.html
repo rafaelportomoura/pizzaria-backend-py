@@ -18,14 +18,16 @@
   {% endif %}
   <form action="/cliente" method="post">
     {% csrf_token %}
-    <label for="nome">Nome:</label><br>
-    <input type="text" id="nome" name="nome"><br><br>
-    <label for="sobrenome">Sobrenome:</label><br>
-    <input type="text" id="sobrenome" name="sobrenome"><br><br>
+    <label for="first_name">Nome:</label><br>
+    <input type="text" id="first_name" name="first_name"><br><br>
+    <label for="last_name">Sobrenome:</label><br>
+    <input type="text" id="last_name" name="last_name"><br><br>
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" name="username"><br><br>
     <label for="email">Email:</label><br>
     <input type="email" id="email" name="email"><br><br>
-    <label for="senha">Senha:</label><br>
-    <input type="password" id="senha" name="senha"><br><br>
+    <label for="password">Senha:</label><br>
+    <input type="password" id="password" name="password"><br><br>
     <input id="submit" type="submit" value="Submit">
   </form>
 
