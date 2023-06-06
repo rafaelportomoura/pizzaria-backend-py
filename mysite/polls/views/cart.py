@@ -8,9 +8,9 @@ from django.http import HttpResponse
 @login_required
 def cart(request):
     context = {}
-    cart, total = CartController(request.user).getCart()
+    cart, items, total = CartController(request.user).getCart()
     if cart:
-        context["cart"] = cart
+        context["cart"] = items
         context["total"] = total
 
     return render(request, templates.CART, context)

@@ -23,7 +23,7 @@ class CartController:
             item.total_price = item.quantity * item.product.price
             total = total + item.total_price
 
-        return items, total
+        return cart, items, total
 
     def addItem(self, product_id):
         if not self.client:
@@ -49,14 +49,10 @@ class CartController:
         cart = self.client.cart
 
         items = cart.cartitem_set.all()
-        print(items)
         for item in items:
             if int(item.product.id) == int(product_id):
-                print(item.quantity)
                 item.quantity = item.quantity - 1
-                print(item.quantity)
                 if item.quantity == 0 or item.quantity < 0:
-                    print(item)
                     item.delete()
                 else:
                     item.save()

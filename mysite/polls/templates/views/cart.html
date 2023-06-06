@@ -83,31 +83,15 @@
     <span>R$ {{total}}</span>
   </div>
   <div class="middle">
-    <a class="btn btn-warning" href="#" role="button">Finalizar Pedido</a>
+    <form action="/pedidos/criado" method="post">
+      {% csrf_token %}
+      <input class="btn btn-warning" type="submit" id="submit" value="Finalizar Pedido">
+    </form>
   </div>
   {% else %}
   <h2>🛒 Carrinho Vazio!</h2>
   {% endif %}
   <span id="csrf_token" style="display: none">{% csrf_token %}</span>
-  <div class="modal" id="modal_success">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <!-- Conteúdo do modal -->
-        <div class="modal-header">
-          <h5 class="modal-title">🍕 Quantidade de pizza alterada com sucesso!</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-        </div>
-        <div class="modal-body">
-          <!-- Conteúdo do corpo do modal -->
-          <p>Quantidade de pizza alterada com sucesso! 🛒 </p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-            onclick="location.reload(true);">Fechar</button>
-        </div>
-      </div>
-    </div>
-  </div>
   <div class="modal" id="modal_error">
     <div class="modal-dialog">
       <div class="modal-content">
