@@ -29,7 +29,7 @@
     <thead>
         <tr>
           <th scope="col">#</th>
-          {% comment %} <th scope="col">Produto</th> {% endcomment %}
+          <th scope="col">Produtos</th>
           {% comment %} <th scope="col">Descrição</th>
           <th scope="col">Preço</th> {% endcomment %}
           <th scope="col">Data</th>
@@ -40,7 +40,7 @@
         {% for order in orders %}
         <tr>
           <th scope="row">{{ order.id }}</th>
-          {% comment %} <td>Otto</td> {% endcomment %}
+          <td>{{ order.products }}</td>
           <td>{{ order.datetime }}</td>
           <td>{{ order.status }}</td>
         </tr>

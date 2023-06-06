@@ -61,10 +61,10 @@ class Product(models.Model):
 
 class Order(models.Model):
     status_choice = [
-        (0, "Cancelled"),
-        (1, "Placed"),
-        (2, "Processing"),
-        (3, "Completed"),
+        (0, "Cancelado"),
+        (1, "Pedido Realizado"),
+        (2, "Preparando"),
+        (3, "Completo"),
     ]
     client = models.ForeignKey(Client, on_delete=models.RESTRICT)
     employee = models.ForeignKey(

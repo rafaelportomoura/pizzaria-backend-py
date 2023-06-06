@@ -11,4 +11,8 @@ class OrderService:
             self.status_choice[key] = value
 
     def all(self):
-        return self.model.objects.all().order_by("datetime")
+        orders = self.model.objects.all().order_by("datetime")
+        for order in orders:
+            order.status = order.get_status_display()
+           
+        return orders

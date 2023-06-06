@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def all(request):
     orders = OrderService().all()
+    
     context = {
         "orders": orders,
     }
