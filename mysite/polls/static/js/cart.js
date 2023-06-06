@@ -1,45 +1,52 @@
-// Função para enviar o POST
-function sendCartItemUpdate(user, itemID, quantity) {
-  // Construir os dados a serem enviados no corpo do POST
-  var data = {
-    quantity: quantity,
-  };
+const show_modal = (modal) => {
+  const the_modal = new bootstrap.Modal(document.getElementById(modal));
+  the_modal.show();
+};
 
-  // Enviar o POST usando fetch ou XMLHttpRequest
-  fetch(`/cart/${user}/item/${itemID}`, {
+const getCsrf = () => {
+  let csrfTokenSpan = document.getElementById('csrf_token');
+  let csrfTokenInput = csrfTokenSpan.querySelector('input[name="csrfmiddlewaretoken"]');
+  return csrfTokenInput.value;
+};
+
+function addToCart(product_id) {
+  // Enviar a requisição PATCH usando fetch
+  fetch(`/cart/${product_id}/add`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      'X-CSRFToken': '{{ csrf_token }}', // Certifique-se de ajustar o valor do token CSRF corretamente
+      'X-CSRFToken': getCsrf(),
     },
-    body: JSON.stringify(data),
   })
     .then((response) => response.json())
     .then((data) => {
-      // Lógica para lidar com a resposta do POST
-      console.log('Atualização do carrinho enviada com sucesso:', data);
+      // Lógica para lidar com a resposta da requisição PATCH
+      show_modal('modal_success');
+      console.log(data);
     })
     .catch((error) => {
-      console.error('Erro ao enviar a atualização do carrinho:', error);
+      show_modal('modal_error');
+      console.error(error);
     });
 }
 
-// Capturar eventos de clique nos links de aumento e diminuição de quantidade
-document.addEventListener('click', function (event) {
-  var target = event.target;
-  if (target.classList.contains('increase-quantity')) {
-    event.preventDefault();
-    var tr = target.closest('tr');
-    var itemID = tr.getAttribute('data-id');
-    var quantity = parseInt(tr.querySelector('span').textContent) + 1;
-    sendCartItemUpdate(itemID, quantity);
-  } else if (target.classList.contains('decrease-quantity')) {
-    event.preventDefault();
-    var tr = target.closest('tr');
-    var itemID = tr.getAttribute('data-id');
-    var quantity = parseInt(tr.querySelector('span').textContent) - 1;
-    if (quantity >= 0) {
-      sendCartItemUpdate(itemID, quantity);
-    }
-  }
-});
+function removeOfCart(product_id) {
+  // Enviar a requisição PATCH usando fetch
+  fetch(`/cart/${product_id}/remove`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCsrf(),
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // Lógica para lidar com a resposta da requisição PATCH
+      show_modal('modal_success');
+      console.log(data);
+    })
+    .catch((error) => {
+      show_modal('modal_error');
+      console.error(error);
+    });
+}

@@ -22,6 +22,26 @@
       text-decoration: none;
       color: white;
     }
+
+    .modal-content {
+      background-color: #212529;
+      color: #fff;
+    }
+
+    .modal-header {
+      background-color: #212529;
+      border-bottom: 1px solid #212529;
+    }
+
+    .modal-body {
+      background-color: #212529;
+
+    }
+
+    .modal-footer {
+      background-color: #212529 !important;
+      border-top: 1px solid #000;
+    }
   </style>
 </head>
 
@@ -46,11 +66,13 @@
         <td>{{ item.product.name }}</td>
         <td>R$ {{ item.product.price }}</td>
         <td class="flex">
-          <a class="link" id="decrease-qtd" href=""><i class="bi bi-patch-minus"></i></a>
+          <button class="btn btn-sm btn-outline-secondary" onclick="removeOfCart('{{item.product.id}}')"><i
+              class="bi bi-patch-minus"></i></button>
           <span>
             {{ item.quantity }}
           </span>
-          <a class="link" id="increase-qtd" href=""><i class="bi bi-patch-plus"></i></a>
+          <button class="btn btn-sm btn-outline-secondary" onclick="addToCart('{{item.product.id}}')"><i
+              class="bi bi-patch-plus"></i></button>
         </td>
         <td>R$ {{item.total_price}}</td>
       </tr>
@@ -67,5 +89,43 @@
   <h2>🛒 Carrinho Vazio!</h2>
   {% endif %}
   <span id="csrf_token" style="display: none">{% csrf_token %}</span>
+  <div class="modal" id="modal_success">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Conteúdo do modal -->
+        <div class="modal-header">
+          <h5 class="modal-title">🍕 Quantidade de pizza alterada com sucesso!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Conteúdo do corpo do modal -->
+          <p>Quantidade de pizza alterada com sucesso! 🛒 </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+            onclick="location.reload(true);">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="modal_error">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Conteúdo do modal -->
+        <div class="modal-header">
+          <h5 class="modal-title">❌ Erro ao alterar quantidade de pizza</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Conteúdo do corpo do modal -->
+          <p>Não foi possível alterar a quantidade de pizza!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+            onclick="location.reload(true);">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <script src="{% static 'js/cart.js' %}"></script>
 </body>

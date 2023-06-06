@@ -35,8 +35,9 @@ class CartController:
 
         items = cart.cartitem_set.all()
         for item in items:
-            if item.product.id == product_id:
+            if int(item.product.id) == int(product_id):
                 item.quantity = item.quantity + 1
+                item.save()
                 return True
 
         CartItem.objects.create(product=product, cart=cart, quantity=1)
@@ -48,10 +49,14 @@ class CartController:
         cart = self.client.cart
 
         items = cart.cartitem_set.all()
+        print(items)
         for item in items:
-            if item.product.id == product_id:
+            if int(item.product.id) == int(product_id):
+                print(item.quantity)
                 item.quantity = item.quantity - 1
+                print(item.quantity)
                 if item.quantity == 0 or item.quantity < 0:
+                    print(item)
                     item.delete()
                 else:
                     item.save()
