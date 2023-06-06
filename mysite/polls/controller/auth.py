@@ -12,7 +12,7 @@ class AuthError(Exception):
 
 
 class Auth:
-    def __init__(self, request):
+    def __init__(self, request=None):
         self.request = request
 
     def login(self):
@@ -32,6 +32,6 @@ class Auth:
     def isClient(self, user):
         try:
             client = Client.objects.get(user_id=user)
-            return client != None
+            return client
         except:
             return False
