@@ -72,10 +72,18 @@ class Order(models.Model):
     )
     status = models.IntegerField(choices=status_choice, default=1)
     datetime = models.DateField(auto_now_add=True)
-    products = models.ManyToManyField(Product)
 
     def __str__(self):
         return f"{self.id}"
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.order}: {self.product} ({self.quantity})"
 
 
 class Cart(models.Model):
