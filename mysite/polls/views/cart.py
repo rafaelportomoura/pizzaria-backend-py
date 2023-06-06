@@ -18,5 +18,11 @@ def cart(request):
 
 @login_required
 def add(request, product_id):
-    print(product_id)
+    CartController(request.user).addItem(product_id)
+    return HttpResponse('{"message": "Adicionado com sucesso"}')
+
+
+@login_required
+def remove(request, product_id):
+    CartController(request.user).removeItem(product_id)
     return HttpResponse('{"message": "Adicionado com sucesso"}')

@@ -10,3 +10,6 @@ class Products:
 
     def perCategory(self, category):
         return self.model.objects.filter(category=category, status=1)
+
+    def getById(self, id):
+        return self.model.objects.get(id=id)
