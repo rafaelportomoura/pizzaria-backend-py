@@ -18,67 +18,27 @@
   {% endif %}
   <form action="/cliente" method="post">
     {% csrf_token %}
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Nome</label>
+        <input class="form-control" placeholder="Nome">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputPassword4">Sobrenome</label>
+        <input  class="form-control" placeholder="Sobrenome">
+      </div>
+    </div>
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="inputEmail4">Email</label>
-          <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+          <input type="email" class="form-control" placeholder="Email">
         </div>
         <div class="form-group col-md-6">
           <label for="inputPassword4">Senha</label>
-          <input type="password" class="form-control" id="inputPassword4" placeholder="Senha">
+          <input type="password" class="form-control" placeholder="Senha">
         </div>
       </div>
-      <div class="form-group">
-        <label for="inputAddress">Endereço</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="Avenida Brasil, 123">
-      </div>
-      <div class="form-group">
-        <label for="inputAddress2">Complemento</label>
-        <input type="text" class="form-control" id="inputAddress2" placeholder="Apto">
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="inputCity">Cidade</label>
-          <input type="text" class="form-control" id="inputCity">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="inputState">Estado</label>
-          <select id="inputState" class="form-control">
-            <option selected>Escolha...</option>
-            <option value="Acre">Acre</option>
-            <option value="Alagoas">Alagoas</option>
-            <option value="Amapá">Amapá</option>
-            <option value="Amazonas">Amazonas</option>
-            <option value="Bahia">Bahia</option>
-            <option value="Ceará">Ceará</option>
-            <option value="Distrito Federal">Distrito</option>
-            <option value="Espirito Santo">Espirito</option>
-            <option value="Goiás">Goiás</option>
-            <option value="Maranhão">Maranhão</option>
-            <option value="Mato Grosso">Mato Grosso</option>
-            <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
-            <option value="Minas Gerais">Minas Gerais</option>
-            <option value="Pará">Pará</option>
-            <option value="Paraíba">Paraíba</option>
-            <option value="Paraná">Paraná</option>
-            <option value="Pernambuco">Pernambuco</option>
-            <option value="Piauí">Piauí</option>
-            <option value="Rio de Janeiro">Rio de Janeiro</option>
-            <option value="Rio Grande do Norte">Rio Grande do Norte</option>
-            <option value="Rio Grande do Sul">Rio Grande do Sul</option>
-            <option value="Rondônia">Rondônia</option>
-            <option value="Roraima">Roraima</option>
-            <option value="Santa Catarina">Santa Catarina</option>
-            <option value="São Paulo">São Paulo</option>
-            <option value="Sergipe">Sergipe</option>
-            <option value="Tocantins">Tocantins</option>
-          </select>
-        </div>
-        <div class="form-group col-md-2">
-          <label for="inputZip">Código postal</label>
-          <input type="text" class="form-control" id="inputZip">
-        </div>
-      </div>
+      <br>
       <button type="submit" class="btn btn-primary">Cadastre-se</button>
     </form>
 
