@@ -9,3 +9,6 @@ class OrderService:
         for status in Order.status_choice:
             value, key = status
             self.status_choice[key] = value
+
+    def all(self):
+        return self.model.objects.all().order_by("datetime")
