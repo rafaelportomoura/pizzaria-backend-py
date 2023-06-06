@@ -66,6 +66,6 @@
   {% else %}
   <h2>🛒 Carrinho Vazio!</h2>
   {% endif %}
-  <span style="display: none">{% csrf_token %}</span>
+  <span id="csrf_token" style="display: none">{% csrf_token %}</span>
   <script src="{% static 'js/cart.js' %}"></script>
 </body>
