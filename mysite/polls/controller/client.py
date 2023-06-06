@@ -1,7 +1,7 @@
 from urllib.parse import parse_qsl
-from django.contrib.auth import login
 from polls.models import Client
 from django.contrib.auth.models import User
+from polls.controller.auth import Auth
 
 
 
@@ -19,12 +19,12 @@ class ClientController:
         try:
             body = dict(parse_qsl(request.body.decode("utf-8")))
             
-        
             user = User.objects.create_user(body["username"], body["email"], body["password"])
-                        
-            Client.objects.create(user_id=user, first_name=body["first_name"], last_name=body["last_name"])
             
-            login(request=request, user=user)
+               
+            Client.objects.create(user_id=user, first_name=body["first_name"], last_name=body["last_name"])
+                        
+            Auth(request=request).login()
         
         except Exception as e:
             raise ClientError(f"Erro ao criar usuário! {e}")
