@@ -3,6 +3,8 @@ from datetime import datetime
 from django.contrib import admin
 from django.contrib.auth.models import User
 import time
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 def filepath(table, instance, filename):
@@ -90,3 +92,9 @@ class CartItem(models.Model):
 
     def __str__(self):
         return f"{self.product} (Quantity: {self.quantity})"
+
+
+@receiver(post_save, sender=Client)
+def create_cart(sender, instance, created, **kwargs):
+    if created:
+        Cart.objects.create(client=instance)
