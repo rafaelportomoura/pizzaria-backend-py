@@ -37,7 +37,7 @@ class Client(models.Model):
     created_at = models.TimeField(auto_now_add=True)
     user_id = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length=20)
-    status = models.IntegerField(choices=status_choice)
+    status = models.IntegerField(choices=status_choice, default=1)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
