@@ -21,8 +21,7 @@ function addToCart(product_id) {
     .then((response) => response.json())
     .then((data) => {
       // Lógica para lidar com a resposta da requisição PATCH
-      show_modal('modal_success');
-      console.log(data);
+      location.reload(true);
     })
     .catch((error) => {
       show_modal('modal_error');
@@ -42,8 +41,7 @@ function removeOfCart(product_id) {
     .then((response) => response.json())
     .then((data) => {
       // Lógica para lidar com a resposta da requisição PATCH
-      show_modal('modal_success');
-      console.log(data);
+      location.reload(true);
     })
     .catch((error) => {
       show_modal('modal_error');

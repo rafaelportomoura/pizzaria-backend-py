@@ -19,5 +19,6 @@ urlpatterns = [
     re_path(r"^sair/?$", views.auth.logout_view, name="logout"),
     re_path(r"^cliente/?$", views.client.client, name="client"),
     re_path(r"^pedidos/?$", views.orders.all, name="orders"),
+    re_path(r"^pedidos/criado/?$", views.orders.create_order, name="order_created"),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

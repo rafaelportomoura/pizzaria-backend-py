@@ -1,0 +1,47 @@
+{%load static%}
+{% include 'components/bootstrap.html' %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedido Realizado - {{order.id}}</title>
+  <style>
+    .main {
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .text {
+      text-align: start;
+    }
+  </style>
+</head>
+{% include 'components/navbar.html' %}
+
+<body class="text-center text-bg-dark" cz-shortcut-listen="true">
+  <div class="cover-container">
+    <div class="main">
+      <h1 class="col-12">🔖 Pedido criado com sucesso!</h1>
+      <div class="col-4">
+
+        <h2 class="col-12 text">Número do pedido: {{order.id}}</h2>
+        <h3 class="col-12 text">Status do pedido: {{order.status_display}}</h3>
+        <div class="col-12 text">
+          {% for item in items %}
+          <div>{{item.quantity}}x {{item.product.name}} (R$ {{item.product.price}}) = R$ {{item.total_price}}</div>
+          {% endfor %}
+          <div>Total: R$ {{total}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
