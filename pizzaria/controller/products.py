@@ -1,4 +1,4 @@
-from polls.models import Product
+from pizzaria.models import Product
 
 
 class Products:

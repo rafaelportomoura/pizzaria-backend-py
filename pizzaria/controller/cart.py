@@ -1,6 +1,6 @@
-from polls.controller.auth import Auth
-from polls.models import Cart, CartItem
-from polls.controller.products import Products
+from pizzaria.controller.auth import Auth
+from pizzaria.models import Cart, CartItem
+from pizzaria.controller.products import Products
 
 
 class CartController:

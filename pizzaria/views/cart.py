@@ -1,7 +1,7 @@
 from django.shortcuts import render
-import polls.views.templates as templates
+import pizzaria.views.templates as templates
 from django.contrib.auth.decorators import login_required
-from polls.controller.cart import CartController
+from pizzaria.controller.cart import CartController
 from django.http import HttpResponse
 
 

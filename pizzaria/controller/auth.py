@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login
 from urllib.parse import parse_qsl
-from polls.models import Client
+from pizzaria.models import Client
 
 
 class AuthError(Exception):

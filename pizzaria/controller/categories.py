@@ -1,4 +1,4 @@
-from polls.models import Category
+from pizzaria.models import Category
 
 
 class Categories:

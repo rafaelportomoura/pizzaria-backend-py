@@ -4,14 +4,13 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('polls', '0003_alter_client_status'),
+        ("pizzaria", "0003_alter_client_status"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='client',
-            name='phone',
+            model_name="client",
+            name="phone",
         ),
     ]

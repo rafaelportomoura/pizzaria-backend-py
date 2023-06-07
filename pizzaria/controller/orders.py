@@ -1,8 +1,8 @@
-from polls.models import Order, OrderItem
+from pizzaria.models import Order, OrderItem
 from django.db import connection
 from urllib.parse import parse_qsl
-from polls.controller.cart import CartController
-from polls.controller.auth import Auth
+from pizzaria.controller.cart import CartController
+from pizzaria.controller.auth import Auth
 
 
 class OrderService:

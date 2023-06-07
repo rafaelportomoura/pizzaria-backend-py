@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from polls.controller.products import Products
-from polls.controller.categories import Categories
-import polls.views.templates as templates
+from pizzaria.controller.products import Products
+from pizzaria.controller.categories import Categories
+import pizzaria.views.templates as templates
 
 
 def all(request):

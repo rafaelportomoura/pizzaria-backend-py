@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from polls.controller.auth import Auth, AuthError
-import polls.views.templates as templates
+from pizzaria.controller.auth import Auth, AuthError
+import pizzaria.views.templates as templates
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 

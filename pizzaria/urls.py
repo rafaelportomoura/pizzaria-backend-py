@@ -1,5 +1,5 @@
 from django.urls import path, re_path
-import polls.views.index as views
+import pizzaria.views.index as views
 from django.conf.urls.static import static
 from django.conf import settings
 

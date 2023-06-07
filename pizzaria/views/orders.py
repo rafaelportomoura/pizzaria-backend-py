@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from polls.controller.orders import OrderService
-import polls.views.templates as templates
+from pizzaria.controller.orders import OrderService
+import pizzaria.views.templates as templates
 from django.contrib.auth.decorators import login_required
 
 
