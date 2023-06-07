@@ -59,6 +59,7 @@ python manage.py runserver
 ```
 
 3. Acesse o site no seu navegador em [http://localhost:8000](http://localhost:8000).
+4. Acesse o ambiente de administrador no seu navegador em [http://localhost:8000/admin](http://localhost:8000/admin).
 
 ## Referências
 
