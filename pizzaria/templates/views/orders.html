@@ -1,0 +1,64 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedidos</title>
+</head>
+
+{% include 'components/navbar.html' %}
+
+<section class="py-5 text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="fw-light">Pedidos 🍕</h1>
+      <p class="lead" style="color: orange;">
+        Aqui está seu histórico de pedidos!
+      </p>
+    </div>
+  </div>
+</section>
+
+<body class="bg-dark text-light">
+  {% if orders %}
+  <table class="table table-hover table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Produtos</th>
+        <th scope="col">Preço</th>
+        <th scope="col">Data</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in orders %}
+      <tr>
+        <th scope="row">{{ order.id }}</th>
+        <td>
+          {% for item in order.items %}
+          <p>{{item}}</p>
+          {% endfor %}
+        </td>
+        <td>R$ {{order.total_price}}</td>
+        <td>{{ order.datetime }}</td>
+        <td>{{ order.status }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+  {% else %}
+  <div style="margin-top: 20px; text-align: center;">
+    <h2 style="color: orange;">Você ainda não fez nenhum pedido! <a style="color: orange;"
+        href="{%url 'produtos'%}">Vamos mudar isso?<a /></h2>
+  </div>
+  {% endif %}
+
+</body>
+
+</html>
