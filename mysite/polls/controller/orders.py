@@ -13,22 +13,31 @@ class OrderService:
             value, key = status
             self.status_choice[value] = key
 
-    def all(self):
-        orders = self.model.objects.all().order_by("datetime")
+    def all(self, request):
+        user = request.user
+        client = Auth().isClient(user=user)
+        orders = self.model.objects.order_by("-datetime").filter(client=client)
+        total = 0
         for order in orders:
-            order.status = order.get_status_display()
+            order, order_items, order_total = self.getOrderWithTotalAndStatus(order)
+            order.items = order_items
+            order.total_price = order_total
+            total = total + order_total
 
-        return orders
+        return orders, total
 
-    def get_by_id(self, id):
-        order = self.model.objects.get(id=id)
+    def getOrderWithTotalAndStatus(self, order):
         items = order.orderitem_set.all()
+        order.status = order.get_status_display()
         total = 0
         for item in items:
             item.total_price = item.quantity * item.product.price
             total = total + item.total_price
-        order.status_display = self.status_choice[order.status]
         return order, items, total
+
+    def get_by_id(self, id):
+        order = self.model.objects.get(id=id)
+        return self.getOrderWithTotalAndStatus(order)
 
     def create(self, request):
         user = request.user
@@ -37,21 +46,22 @@ class OrderService:
         if not client:
             raise Exception("Usuário não é cliente!")
 
-        cart, items, total = CartController(user=user).getCart()
+        cart, cart_items, total = CartController(user=user).getCart()
 
-        if len(items) <= 0:
-            raise Exception("Sem items para cadastrar")
+        if len(cart_items) <= 0:
+            raise Exception("Sem itens no carrinho!")
 
         order = Order.objects.create(client=client)
 
-        order.status_display = self.status_choice[order.status]
+        order.status = order.get_status_display()
         order_items = []
-        for item in items:
+        for item in cart_items:
             product = item.product
             quantity = item.quantity
             order_item = OrderItem.objects.create(
                 order=order, product=product, quantity=quantity
             )
+            order_item.total_price = item.total_price
             order_items.append(order_item)
             item.delete()
 

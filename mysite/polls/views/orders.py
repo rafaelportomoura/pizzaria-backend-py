@@ -6,11 +6,9 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def all(request):
-    orders = OrderService().all()
+    orders, total = OrderService().all(request=request)
 
-    context = {
-        "orders": orders,
-    }
+    context = {"orders": orders, "total": total}
     return render(request, templates.ORDERS, context)
 
 
