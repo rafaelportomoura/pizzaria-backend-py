@@ -7,14 +7,17 @@ class CartController:
     def __init__(self, user):
         self.client = Auth().isClient(user=user)
 
+    def createCart(self):
+        return Cart.objects.create(client=self.client)
+
     def getCart(self):
         if not self.client:
-            return None, None
+            return None, None, None
 
         cart = self.client.cart
 
         if not cart:
-            return None, None
+            cart = self.create_cart()
 
         items = cart.cartitem_set.all()
 

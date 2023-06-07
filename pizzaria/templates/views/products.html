@@ -27,6 +27,14 @@
       background-color: #212529 !important;
       border-top: 1px solid #000;
     }
+
+    .center {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 25vh;
+    }
   </style>
 </head>
 
@@ -45,7 +53,6 @@
 </section>
 
 <body class="bg-dark text-light">
-  {% if categories %}
   {% with query_string="category" class_of_li="nav-item" active="nav-link active" inactive="nav-link" %}
   <ul class="nav nav-tabs justify-content-center" data-bs-theme="dark">
     <li class="{{class_of_li}}">
@@ -55,6 +62,7 @@
       <a class="{{inactive}}" href="{% url 'produtos' %}">Todas</a>
       {% endif %}
     </li>
+    {% if categories %}
     {% for category in categories %}
     <li class="{{class_of_li}}">
       {% if category.name == searched_category %}
@@ -64,9 +72,9 @@
       {% endif %}
     </li>
     {% endfor %}
+    {% endif %}
   </ul>
   {% endwith %}
-  {% endif %}
 
 
   {% if products %}
@@ -101,7 +109,7 @@
 
   </div>
   {% else %}
-  <div style="margin-top: 20px;">
+  <div class="center">
     <h2 style="color: orange;">Estamos sem produtos nesta categoria no momento! 😭</h2>
   </div>
   {% endif %}
