@@ -42,6 +42,14 @@
       background-color: #212529 !important;
       border-top: 1px solid #000;
     }
+
+    .center {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 90vh;
+    }
   </style>
 </head>
 
@@ -89,7 +97,9 @@
     </form>
   </div>
   {% else %}
-  <h2>🛒 Carrinho Vazio!</h2>
+  <div class="center">
+    <h2>🛒 Carrinho Vazio!</h2>
+  </div>
   {% endif %}
   <span id="csrf_token" style="display: none">{% csrf_token %}</span>
   <div class="modal" id="modal_error">

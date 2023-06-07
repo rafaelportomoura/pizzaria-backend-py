@@ -24,36 +24,41 @@
 
 <body class="bg-dark text-light">
   {% if orders %}
-  {% comment %} {% with query_string="order" class_of_li="nav-item" active="nav-link active" inactive="nav-link" %} {% endcomment %}
   <table class="table table-hover table-dark">
     <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Produtos</th>
-          {% comment %} <th scope="col">Descrição</th>
-          <th scope="col">Preço</th> {% endcomment %}
-          <th scope="col">Data</th>
-          <th scope="col">Status</th>
-        </tr>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Produtos</th>
+        <th scope="col">Preço</th>
+        <th scope="col">Data</th>
+        <th scope="col">Status</th>
+      </tr>
     </thead>
     <tbody>
-        {% for order in orders %}
-        <tr>
-          <th scope="row">{{ order.id }}</th>
-          <td>{{ order.products }}</td>
-          <td>{{ order.datetime }}</td>
-          <td>{{ order.status }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+      {% for order in orders %}
+      <tr>
+        <th scope="row">{{ order.id }}</th>
+        <td>
+          {% for item in order.items %}
+          <p>{{item}}</p>
+          {% endfor %}
+        </td>
+        <td>{{order.total_price}}</td>
+        <td>{{ order.datetime }}</td>
+        <td>{{ order.status }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
 
   {% else %}
   <div style="margin-top: 20px; text-align: center;">
-    <h2 style="color: orange;">Você ainda não fez nenhum pedido! <a style="color: orange;" href="{%url 'produtos'%}">Vamos mudar isso?<a/></h2>
+    <h2 style="color: orange;">Você ainda não fez nenhum pedido! <a style="color: orange;"
+        href="{%url 'produtos'%}">Vamos mudar isso?<a /></h2>
   </div>
   {% endif %}
 
 </body>
+
 </html>

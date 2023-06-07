@@ -83,7 +83,7 @@ class OrderItem(models.Model):
     quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):
-        return f"{self.order}: {self.product} ({self.quantity})"
+        return f"{self.quantity}x {self.product}"
 
 
 class Cart(models.Model):
