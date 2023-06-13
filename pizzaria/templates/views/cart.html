@@ -70,7 +70,7 @@
     <tbody>
       {% for item in cart %}
       <tr>
-        <th scope="row">{{item.id}}</th>
+        <th scope="row">{{ forloop.counter }}</th>
         <td>{{ item.product.name }}</td>
         <td>R$ {{ item.product.price }}</td>
         <td class="flex">
