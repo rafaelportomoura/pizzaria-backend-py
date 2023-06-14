@@ -21,6 +21,7 @@ class OrderService:
         for order in orders:
             order, order_items, order_total = self.getOrderWithTotalAndStatus(order)
             order.items = order_items
+            order.datetime = order.datetime.strftime("%d/%m/%Y")
             order.total_price = order_total
             total = total + order_total
 
