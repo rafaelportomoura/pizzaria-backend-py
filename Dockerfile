@@ -8,4 +8,3 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY manage.py ./
 COPY admin ./
 COPY pizzaria ./
-CMD python manage.py migrate
