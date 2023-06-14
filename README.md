@@ -35,14 +35,6 @@ LC_COLLATE=pt_BR.UTF-8
 LC_CTYPE=pt_BR.UTF-8
 ```
 
-## Criando super usuário
-
-1. Execute o comando para criar super usuário:
-
-```shell
-docker-compose exec pizzaria python manage.py createsuperuser
-```
-
 ## Rodando o Projeto
 
 1. Inicie o contêiner do PostgreSQL e o servidor Django executando o seguinte comando:
@@ -55,6 +47,14 @@ Isso irá construir a imagem do Docker e iniciar o contêiner do PostgreSQL junt
 
 2. Acesse o site no seu navegador em [http://localhost:8000](http://localhost:8000).
 3. Acesse o ambiente de administrador no seu navegador em [http://localhost:8000/admin](http://localhost:8000/admin).
+
+## Criando super usuário
+
+1. Execute o comando para criar super usuário:
+
+```shell
+docker-compose exec pizzaria python manage.py createsuperuser
+```
 
 ## Referências
 
