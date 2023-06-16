@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Client, Order, Product, Cart, CartItem, OrderItem
+from pizzaria.models import Category, Client, Order, Product, Cart, CartItem, OrderItem
 
 
 admin.site.register(Category)

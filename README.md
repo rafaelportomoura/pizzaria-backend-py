@@ -6,60 +6,55 @@ Este site foi desenvolvido como projeto para a disciplina de Programação WEB d
 
 ## Requisitos
 
-- Python 3.x
-- Django 4.2.1
+- Docker version 24.0.0
+- Docker Compose version 2.18.1
 
 ## Instalação
 
 1. Clone o repositório para o seu ambiente local:
 
 ```shell
-git clone https://github.com/rafaelportomoura/pizzaria-backend-py.git
+git clone https://github.com/rafaelportomoura/ufla-pizzaria-django.git
 ```
 
 2. Acesse o diretório do projeto:
 
 ```shell
-cd pizzaria-backend-py
+cd ufla-pizzaria-django
 ```
 
-3. Crie um ambiente virtual (opcional):
+3. Crie um arquivo `.env` no diretório raiz do projeto com as seguintes variáveis de ambiente, substituindo
+   o que tiver entre `{}`
+
+```.env
+POSTGRES_DB={nome_do_banco}
+POSTGRES_USER={usuario}
+POSTGRES_PASSWORD={senha}
+DB_HOST_NAME=db
+LC_COLLATE=pt_BR.UTF-8
+LC_CTYPE=pt_BR.UTF-8
+```
+
+## Rodando o Projeto
+
+1. Inicie o contêiner do PostgreSQL e o servidor Django executando o seguinte comando:
 
 ```shell
-python3 -m venv env
-source env/bin/activate
+docker-compose up
 ```
 
-4. Instale as dependências do projeto:
+Isso irá construir a imagem do Docker e iniciar o contêiner do PostgreSQL juntamente com o servidor Django e o Administrador do banco de dados.
 
-```shell
-pip install -r requirements.txt
-```
+2. Acesse o site no seu navegador em [http://localhost:8000](http://localhost:8000).
+3. Acesse o ambiente de administrador no seu navegador em [http://localhost:8000/admin](http://localhost:8000/admin).
 
 ## Criando super usuário
 
 1. Execute o comando para criar super usuário:
 
 ```shell
-python manage.py createsuperuser
+docker-compose exec pizzaria python manage.py createsuperuser
 ```
-
-## Rodando o Projeto
-
-1. Execute as migrações do banco de dados:
-
-```shell
-python manage.py migrate
-```
-
-2. Inicie o servidor de desenvolvimento:
-
-```shell
-python manage.py runserver
-```
-
-3. Acesse o site no seu navegador em [http://localhost:8000](http://localhost:8000).
-4. Acesse o ambiente de administrador no seu navegador em [http://localhost:8000/admin](http://localhost:8000/admin).
 
 ## Referências
 
