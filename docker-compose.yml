@@ -7,7 +7,9 @@ services:
     command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./app:/usr/src/app
-    env_file: .env
+    env_file:
+      - .env
+      - rabbit.env
     ports:
       - 8000:8000
     depends_on:
@@ -35,8 +37,20 @@ services:
     networks:
       - backend
 
+  rabbitmq:
+    image: rabbitmq:3.12.0-management-alpine
+    env_file:
+      - rabbit.env
+    ports:
+      - 15672:15672
+    networks:
+      - backend
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+
 volumes:
   postgres_data:
+  rabbitmq:
 
 networks:
   backend:

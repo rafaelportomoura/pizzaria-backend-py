@@ -1,8 +1,11 @@
-from pizzaria.models import Order, OrderItem
-from django.db import connection
+import json
 from urllib.parse import parse_qsl
-from pizzaria.controller.cart import CartController
+
+from django.forms.models import model_to_dict
 from pizzaria.controller.auth import Auth
+from pizzaria.controller.cart import CartController
+from pizzaria.models import Order, OrderItem
+from pizzaria.providers.rabbitmq import RabbitMQ
 
 
 class OrderService:
@@ -12,6 +15,7 @@ class OrderService:
         for status in Order.status_choice:
             value, key = status
             self.status_choice[value] = key
+        self.rabbitmq = RabbitMQ()
 
     def all(self, request):
         user = request.user
@@ -47,7 +51,7 @@ class OrderService:
         if not client:
             raise Exception("Usuário não é cliente!")
 
-        cart, cart_items, total = CartController(user=user).getCart()
+        _, cart_items, total = CartController(user=user).getCart()
 
         if len(cart_items) <= 0:
             raise Exception("Sem itens no carrinho!")
@@ -65,5 +69,21 @@ class OrderService:
             order_item.total_price = item.total_price
             order_items.append(order_item)
             item.delete()
+
+        message_queue = json.dumps(
+            {
+                "order": model_to_dict(order),
+                "order_items": [
+                    model_to_dict(order_item) for order_item in order_items
+                ],
+                "total": total.__str__(),
+            }
+        )
+
+        self.rabbitmq.connect()
+        self.rabbitmq.send_to_queue(
+            queue="order", message=message_queue, routing_key="order"
+        )
+        self.rabbitmq.disconnect()
 
         return order, order_items, total
