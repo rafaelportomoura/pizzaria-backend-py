@@ -23,8 +23,7 @@ git clone https://github.com/rafaelportomoura/ufla-pizzaria-django.git
 cd ufla-pizzaria-django
 ```
 
-3. Crie um arquivo `.env` no diretório raiz do projeto com as seguintes variáveis de ambiente, substituindo
-   o que tiver entre `{}`
+3. Crie um arquivo `.env` no diretório raiz do projeto com as seguintes variáveis de ambiente, substituindo o que tiver entre `{}`
 
 ```.env
 POSTGRES_DB={nome_do_banco}
@@ -33,6 +32,14 @@ POSTGRES_PASSWORD={senha}
 DB_HOST_NAME=db
 LC_COLLATE=pt_BR.UTF-8
 LC_CTYPE=pt_BR.UTF-8
+```
+
+4. Crie um arquivo `.env` no diretório raiz do projeto com as seguintes variáveis de ambiente, substituindo o que tiver entre `{}`
+
+```.env
+RABBITMQ_DEFAULT_USER={user}
+RABBITMQ_DEFAULT_PASS={pass}
+RABBITMQ_HOST=rabbitmq
 ```
 
 ## Rodando o Projeto
