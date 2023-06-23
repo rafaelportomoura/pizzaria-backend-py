@@ -9,7 +9,7 @@ from pizzaria.providers.rabbitmq import RabbitMQ
 
 
 class OrderService:
-    def __init__(self):
+    def __init__(self) -> None:
         self.model = Order
         self.status_choice = {}
         for status in Order.status_choice:
