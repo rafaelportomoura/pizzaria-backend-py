@@ -68,10 +68,11 @@ docker-compose exec pizzaria python manage.py createsuperuser
 1. [Django][djangoproject]
 2. [Jinja][jinja]
 3. [Ambiente Virtual no Python (Alura)][alura]
-
+4. [Django Command][django-command]
 <!-- LINKS -->
 
 [alura]: https://www.alura.com.br/artigos/ambientes-virtuais-em-python?gclid=EAIaIQobChMI8qTH16jp_gIVfWpvBB21_QsdEAAYASAAEgIwI_D_BwE
 [djangoproject]: https://docs.djangoproject.com/en/4.2/
 [jinja]: https://jinja.palletsprojects.com/en/3.1.x/
 [site]: ./assets/site.png
+[django-command]: https://docs.djangoproject.com/en/4.2/howto/custom-management-commands/

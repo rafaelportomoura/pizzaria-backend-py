@@ -120,7 +120,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+*.env
 .venv
 env/
 venv/
@@ -162,3 +162,4 @@ cython_debug/
 media/
 node_modules/
 postgres_data/
+rabbit_tests

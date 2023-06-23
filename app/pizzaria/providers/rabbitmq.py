@@ -1,6 +1,6 @@
 import os
-
 import pika
+from types import FunctionType
 
 
 class RabbitMQ:
@@ -34,6 +34,19 @@ class RabbitMQ:
                 delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE
             ),
         )
+
+    def consumer(
+        self,
+        queue: str,
+        callback: FunctionType,
+        durable: bool = True,
+        prefecth_count: int = 1,
+    ) -> None:
+        channel = self.connection.channel()
+        channel.queue_declare(queue=queue, durable=durable)
+        channel.basic_qos(prefetch_count=prefecth_count)
+        channel.basic_consume(queue=queue, on_message_callback=callback)
+        channel.start_consuming()
 
     def disconnect(self) -> None:
         self.connection.close()
