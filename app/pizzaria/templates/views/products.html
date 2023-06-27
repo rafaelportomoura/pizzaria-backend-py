@@ -35,6 +35,13 @@
       align-items: center;
       height: 25vh;
     }
+
+    .products-cards {
+      max-width: auto;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      max-height: 200px;
+    }
   </style>
 </head>
 
@@ -85,7 +92,7 @@
         {% for product in products %}
         <div class="col">
           <div class="card shadow-sm">
-            <img src="{{product.picture.url}}">
+            <img class="products-cards" src="{{product.picture.url}}" alt="{{product.name}}" />
             <div class="card-body">
               <p class="card-text">{{product.name}}</p>
               <p class="card-description">{{product.description}}</p>
