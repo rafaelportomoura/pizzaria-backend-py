@@ -54,7 +54,7 @@ class OrderService:
         _, cart_items, total = CartController(user=user).getCart()
 
         if len(cart_items) <= 0:
-            raise Exception("Sem itens no carrinho!")
+            raise Exception("Carrinho vazio!")
 
         order = Order.objects.create(client=client)
 

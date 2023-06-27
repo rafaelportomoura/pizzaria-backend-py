@@ -17,7 +17,6 @@ function addToCart(product_id) {
   })
     .then((response) => response.json())
     .then((data) => {
-      // Lógica para lidar com a resposta da requisição PATCH
       console.log(data);
     })
     .catch((error) => {
