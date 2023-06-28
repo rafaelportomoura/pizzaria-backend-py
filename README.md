@@ -36,7 +36,7 @@ LC_CTYPE=pt_BR.UTF-8
 
 4. Crie um arquivo `.env` no diretório raiz do projeto com as seguintes variáveis de ambiente, substituindo o que tiver entre `{}`
 
-```.env
+```rabbit.env
 RABBITMQ_DEFAULT_USER={user}
 RABBITMQ_DEFAULT_PASS={pass}
 RABBITMQ_HOST=rabbitmq
