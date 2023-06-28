@@ -34,7 +34,7 @@ LC_COLLATE=pt_BR.UTF-8
 LC_CTYPE=pt_BR.UTF-8
 ```
 
-4. Crie um arquivo `.env` no diretório raiz do projeto com as seguintes variáveis de ambiente, substituindo o que tiver entre `{}`
+4. Crie um arquivo `rabbit.env` no diretório raiz do projeto com as seguintes variáveis de ambiente, substituindo o que tiver entre `{}`
 
 ```rabbit.env
 RABBITMQ_DEFAULT_USER={user}
