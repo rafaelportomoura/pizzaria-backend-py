@@ -1,0 +1,7 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "PizzariaEC2Deploy"
+region = "us-east-1"
+capabilities = "CAPABILITY_NAMED_IAM"
