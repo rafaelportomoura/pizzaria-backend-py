@@ -1,0 +1,206 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Pizzaria DCC - EC2 Template
+
+Parameters:
+  Name:
+    Type: String
+    Description: Name of project
+    Default: Pizzaria
+  AmiId:
+    Type: AWS::EC2::Image::Id
+    Default: ami-06ca3ca175f37dd66
+  InstanceType:
+    Type: String
+    Default: t2.micro
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+  SubnetId:
+    Type: AWS::EC2::Subnet::Id
+  Ip:
+    Type: String
+    Description: IP address for security group
+  PublicKey:
+    Type: String
+    Description: SSH Key for connect with ec2
+    NoEcho: true
+
+Resources:
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: !Sub ${Name}SG
+      GroupDescription: Enable TCP access via port 22, 80 and 443
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - CidrIp: !Sub "${Ip}/32"
+          FromPort: 22
+          IpProtocol: tcp
+          ToPort: 22
+        - CidrIp: 0.0.0.0/0
+          FromPort: 80
+          IpProtocol: tcp
+          ToPort: 80
+        - CidrIp: !Sub "${Ip}/32"
+          FromPort: 443
+          IpProtocol: tcp
+          ToPort: 443
+
+  Key:
+    Type: "AWS::EC2::KeyPair"
+    Properties:
+      KeyName: !Sub ${Name}Key
+      KeyType: rsa
+      PublicKeyMaterial: !Ref PublicKey
+      Tags:
+        - Key: Name
+          Value: !Sub "${Name}-key"
+
+  Role:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: !Sub ${Name}Role
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: ec2.amazonaws.com
+          Action: sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+
+  InstanceProfile: 
+    Type: "AWS::IAM::InstanceProfile"
+    Properties: 
+      InstanceProfileName: !Sub ${Name}InstanceProfile
+      Path: "/"
+      Roles: 
+        - !Ref Role
+
+
+  EC2:
+    DependsOn: Document
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref AmiId
+      InstanceType: !Ref InstanceType
+      NetworkInterfaces:
+        - DeviceIndex: "0"
+          GroupSet:
+            - !Ref SecurityGroup
+          SubnetId: !Ref SubnetId
+      KeyName: !Ref Key
+      IamInstanceProfile: !Ref InstanceProfile
+      Tags:
+        - Key: Name
+          Value: !Ref Name
+      UserData: !Base64
+        "Fn::Sub": |
+          #!/bin/bash
+          sudo dnf update -y 
+          sudo dnf install docker -y
+          sudo service docker start
+          sudo usermod -a -G docker ec2-user
+          sudo chkconfig docker on
+          sudo dnf  install -y git
+          sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+          sudo git config --global credential.helper '!aws codecommit credential-helper $@'
+          sudo git config --global credential.UseHttpPath true
+
+  Document:
+    Type: AWS::SSM::Document
+    Properties:
+      Name: !Sub ${Name}Document
+      TargetType: /AWS::EC2::Instance
+      DocumentType: Command
+      Tags:
+        - Key: Name
+          Value: !Ref Name
+      Content: 
+        schemaVersion: "2.2"
+        description: SSM document content with deployment processes
+        parameters:
+          RepositoryPathOnEC2:
+            type: String
+            default: /home/ec2-user/ufla-pizzaria-django
+
+          ContainerName:
+            type: String
+            default: pizzaria
+
+          ImageName:
+            type: String
+            default: pizzaria
+
+          DatabaseDotEnv:
+            type: String
+
+          RabbitDotEnv:
+            type: String
+
+        mainSteps:
+          - action: aws:runShellScript
+            name: gitConfiguration
+            inputs:
+              runCommand:
+                - git config --system credential.helper "!aws codecommit credential-helper $@"
+                - git config --system credential.UseHttpPath true
+                - git config --system user.email "pizzaria@dcc.ufla"
+                - git config --system user.name "pizzaria"
+
+          - action: aws:runShellScript
+            name: cloneGitRepository
+            inputs:
+              runCommand:
+                - "git clone https://github.com/rafaelportomoura/ufla-pizzaria-django.git {{ RepositoryPathOnEC2 }}"
+
+          - action: aws:runShellScript
+            name: updatesGitRepository
+            inputs:
+              runCommand:
+                - "cd {{ RepositoryPathOnEC2 }}"
+                - git pull origin master
+
+          - action: aws:runShellScript
+            name: killRunningContainer
+            inputs:
+              runCommand:
+                - "docker kill {{ ContainerName }}"
+                - "docker container rm {{ ContainerName }}"
+
+          - action: aws:runShellScript
+            name: removeImage
+            inputs:
+              runCommand:
+                - "docker image rm {{ ImageName }}"
+
+          - action: aws:runShellScript
+            name: upContainer
+            inputs:
+              runCommand:
+                - "cd {{ RepositoryPathOnEC2 }}"
+                - "echo -e \"{{ DatabaseDotEnv }}\" >.env"
+                - "echo -e \"{{ RabbitDotEnv }}\" >rabbit.env"
+                - docker-compose up -d
+
+Outputs:
+  InstanceDns:
+    Description: EC2 Public DNS
+    Value: !GetAtt EC2.PublicDnsName
+    Export:
+      Name: !Sub ${Name}Dns
+
+  SsmDocument:
+    Description: SSM Document name
+    Value: !Ref Document
+    Export:
+      Name: !Sub ${Name}Document
+
+  InstanceID:
+    Description: EC2 instance id
+    Value: !Ref EC2
+    Export:
+      Name: !Sub ${Name}InstanceId
